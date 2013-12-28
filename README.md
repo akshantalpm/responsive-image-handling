@@ -20,6 +20,19 @@ Responsive Image Handling
 
 
 ####Usage:
+*  Register event handler:
+   <br><b>imageServer</b> = Scene7 | Cloudinary (By default it is Scene7) 
+    ```javascript
+    var options = {imageServer: "Scene7"}; 
+    $(function () {
+      $(document).loadImages(options);
+    });
+
+    $(window).resize(function () {
+      $(document).loadImages(options);
+    });
+   ```
+   
 *	Add following attributes to the img tag:
  * class - "ri"  
  * src and width data attribute 
