@@ -3,12 +3,13 @@
   <script src="jquery-1.8.3.min.js"></script>
   <script src="ri.js"></script>
   <script>
+    var options = {imageServer: "Scene7"};
     $(function () {
-      $(document).loadImages({imageServer: "Scene7"});
+      $(document).loadImages(options);
     });
 
     $(window).resize(function () {
-      $(document).loadImages({imageServer: "Scene7"});
+      $(document).loadImages(options);
     });
   </script>
 </head>
