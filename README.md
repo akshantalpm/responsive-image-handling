@@ -37,11 +37,9 @@ Responsive Image Handling
  * class - "ri"  
  * src and width data attribute 
  
-*	HTML Snippet:
-
-```html
-<img class="ri" src="" data-desktop-width="700" data-tablet-width="400" data-phone-width="200"
+ ```html
+ <img class="ri" src="" data-desktop-width="700" data-tablet-width="400" data-phone-width="200"
      data-src-desktop="http://s7ap1.scene7.com/is/image/TW/lemon1"
      data-src-tablet="http://s7ap1.scene7.com/is/image/TW/lemon1"
      data-src-phone="http://s7ap1.scene7.com/is/image/TW/lemon2">
-```
+ ```
