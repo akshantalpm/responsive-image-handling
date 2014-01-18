@@ -1,71 +1,80 @@
-(function ( $ ) {
+function ResponsiveImageLoader(options){
+  var imageServer = options["imageServer"] || "Scene7";
+  var breakpoints = options["breakpoints"] || new Breakpoints();
+  var imageServers = {
+    Scene7 : function() { return new Scene7ImageServer()},
+    Cloudinary : function() {return new CloudinaryImageServer()}
+  }
 
-  $.fn.loadImages = function( options ) {
-    var breakpoints = {}
-    breakpoints['phone'] = {minWidth:0, maxWidth: 480}
-    breakpoints['tablet'] = {minWidth: 481, maxWidth: 768}
-    breakpoints['desktop'] = {minWidth: 769, maxWidth: screen.availWidth}
+  var loadImage = function (img, breakpointName) {
+    var imgSrc = img.getAttribute("data-src-"+breakpointName);
+    var imgWidth = img.getAttribute("data-" + breakpointName + '-width');
+    img.src = imageServers[imageServer]().getUrl(imgSrc, imgWidth)
+  }
 
-    var settings = $.extend({
-     imageServer: "Scene7"
-    }, options );
-
-    loadImage = function (img, breakpointName) {
-      var imgSrc = $(img).data('src-' + breakpointName);
-      var imgWidth = $(img).data(breakpointName + '-width');
-      $(img).attr('src', constructUrl(imgSrc, imgWidth))
+  this.loadImages = function () {
+    var width = window.innerWidth,
+      elements = document.getElementsByClassName("ri");
+    for (index = 0; index < elements.length; ++index) {
+      var breakpointName = breakpoints.getBreakpointName(width);
+      loadImage(elements[index], breakpointName);
     }
+  }
+}
 
-    constructUrl = function(imgUrl, width) {
-      function constructScene7Url() {
-        return imgUrl + "?wid=" + width;
-      }
-
-      function constructCloudinaryUrl() {
-        var filename = imgUrl.split('/').pop();
-        var imagePath = imgUrl.substring(0, imgUrl.lastIndexOf("/") + 1);
-        return imagePath + "w_" + width + "/" + filename
-      }
-
-      switch (settings.imageServer) {
-        case "Scene7":
-          return constructScene7Url();
-          break;
-        case "Cloudinary" :
-          return constructCloudinaryUrl();
-          break;
-        default :
-          return imgUrl;
-          break;
-      }
+ResponsiveImageLoader.prototype.init = function() {
+  var that = this;
+  document.onreadystatechange = function () {
+    if (document.readyState == "complete") {
+      that.loadImages();
     }
+  }
+  window.onresize = function(){that.loadImages()}
+}
 
-    getBreakpointName = function (breakpoints, viewportWidth) {
-      var result, minWidth, maxWidth;
+function Breakpoints(options) {
+  var defaultBreakpoints = {
+    "phone" : {minWidth:0, maxWidth: 480},
+    "tablet" :{minWidth: 481, maxWidth: 768},
+    "desktop": {minWidth: 769, maxWidth: screen.availWidth}
+  }
+  this.breakpoints = options || defaultBreakpoints;
+}
 
-      for (breakpointName in breakpoints) {
-        minWidth = breakpoints[breakpointName].minWidth;
-        maxWidth = breakpoints[breakpointName].maxWidth;
+Breakpoints.prototype.getBreakpointName = function (viewportWidth) {
+  var result, minWidth, maxWidth;
 
-        if(viewportWidth >= minWidth && viewportWidth <= maxWidth) {
-          result = breakpointName
-        }
+  for (var breakpointName in this.breakpoints) {
+    minWidth = this.breakpoints[breakpointName].minWidth;
+    maxWidth = this.breakpoints[breakpointName].maxWidth;
 
-      }
-      return result;
+    if(viewportWidth >= minWidth && viewportWidth <= maxWidth) {
+      result = breakpointName
     }
+  }
 
-    var width = $(window).width();
-    this.find(".ri").each(function (idx, img) {
-      var breakpointName = getBreakpointName(breakpoints, width);
-      loadImage(img, breakpointName);
-    });
-  };
+  return result;
+}
 
+function ImageServer(urlGenerator) {
+  function Image() {
+  }
 
-}( jQuery ));
+  Image.prototype.getUrl = function (src, width) {
+    return urlGenerator(src, width)
+  }
 
+  return Image
+}
 
+Scene7ImageServer = ImageServer(
+  function(url, width) { return url + "?wid=" + width;}
+)
 
-
-
+CloudinaryImageServer = ImageServer(
+ function(url, width) {
+   var filename = url.split('/').pop();
+   var imagePath = url.substring(0, url.lastIndexOf("/") + 1);
+   return imagePath + "w_" + width + "/" + filename
+ }
+)
