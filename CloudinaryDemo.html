@@ -1,15 +1,13 @@
 <html>
 <head>
-  <script src="jquery-1.8.3.min.js"></script>
   <script src="ri.js"></script>
   <script>
-    $(function () {
-      $(document).loadImages({imageServer: "Cloudinary"});
-    });
+    var imageLoader = new ResponsiveImageLoader(
+      {imageServer: "Cloudinary"}
+    )
 
-    $(window).resize(function () {
-      $(document).loadImages({imageServer: "Cloudinary"});
-    });
+   imageLoader.init();
+
   </script>
 </head>
 <body>
