@@ -22,15 +22,20 @@ Responsive Image Handling
 ####Usage:
 *  Register event handler:
    <br><b>imageServer</b> = Scene7 | Cloudinary (By default it is Scene7) 
-    ```javascript
-    var options = {imageServer: "Scene7"}; 
-    $(function () {
-      $(document).loadImages(options);
-    });
+   <br><b>breakpoints</b> = By default it is as mentioned in the above table.
+   <br><br>Above settings can be configured in the following way
+   ```javascript
+    var imageLoader = new ResponsiveImageLoader(
+      {
+        imageServer: "Scene7",
+        breakpoints: new Breakpoints({
+          "tablet": {minWidth: 0, maxWidth: 768},
+          "desktop": {minWidth: 769, maxWidth: screen.availWidth}
+        })
+      }
+    )
 
-    $(window).resize(function () {
-      $(document).loadImages(options);
-    });
+    imageLoader.init();
    ```
    
 *	Add following attributes to the img tag:
