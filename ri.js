@@ -1,4 +1,5 @@
 function ResponsiveImageLoader(options){
+  options = options || {}
   var imageServer = options["imageServer"] || "Scene7";
   var breakpoints = options["breakpoints"] || new Breakpoints();
   var imageServers = {
