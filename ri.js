@@ -2,6 +2,7 @@ function ResponsiveImageLoader(options){
   options = options || {}
   var imageServer = options["imageServer"] || "Scene7";
   var breakpoints = options["breakpoints"] || new Breakpoints();
+  var retina = window.devicePixelRatio > 1;
   var imageServers = {
     Scene7 : function() { return new Scene7ImageServer()},
     Cloudinary : function() {return new CloudinaryImageServer()}
@@ -10,6 +11,7 @@ function ResponsiveImageLoader(options){
   var loadImage = function (img, breakpointName) {
     var imgSrc = img.getAttribute("data-src-"+breakpointName);
     var imgWidth = img.getAttribute("data-" + breakpointName + '-width');
+    imgWidth = retina ? imgWidth *2 : imgWidth;
     img.src = imageServers[imageServer]().getUrl(imgSrc, imgWidth)
   }
 
