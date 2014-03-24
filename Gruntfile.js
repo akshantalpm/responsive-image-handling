@@ -1,21 +1,37 @@
-/* jshint node: true */
+module.exports = function(grunt) {
+  'use strict';
 
-module.exports = function (grunt) {
-  "use strict";
-
+  // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    jasmine: {
-      src: "jasmine/lib/**/*.js",
+    jasmine : {
+      src : ['jquery/jquery-1.8.3.min.js', 'ri.js'],
+      options : {
+        specs : 'jasmine/spec/**/*.js',
+        template: require('grunt-template-jasmine-requirejs'),
+        templateOptions: {
+          requireConfig: {
+            baseUrl: ''
+          }
+        }
+      }
+    },
+    jshint: {
+      all: [
+        'Gruntfile.js',
+        'ri.js',
+        'jasmine/spec/**/*.js'
+      ],
       options: {
-        specs: "jasmine/spec/**/*.js",
-        version: '1.3.1'
+        jshintrc: '.jshintrc'
       }
     }
-  })
+  });
 
-  grunt.loadNpmTasks('grunt-contrib-jasmine')
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('test', ['jasmine'])
-  grunt.registerTask('default', ['test'])
+  grunt.registerTask('test', ['jasmine']);
+
+  grunt.registerTask('default', ['test']);
+
 };

@@ -1,5 +1,6 @@
-Responsive Image Handling
 =========================
+Responsive Image Handling [![Build Status](http://travis-ci.org/akshantalpm/responsive-image-handling.png?branch=master)](http://travis-ci.org/akshantalpm/responsive-image-handling)
+========================= 
 
 * Ability to select different image files with different resolution of same or different image based on the screen size
 
