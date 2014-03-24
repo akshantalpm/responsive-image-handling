@@ -15,7 +15,7 @@ define(['ri'], function () {
 
       expect($(input).find('.ri').length).toEqual(1);
       var images = $(input).find('.ri');
-      expect(images[0].src).toEqual("http://res.cloudinary.com/demo/image/upload/sample.jpg?wid=700");
+      expect(images[0].src).toEqual("http://res.cloudinary.com/demo/image/upload/sample.jpg");
     });
 
     it("loads images for retina display", function () {
@@ -27,7 +27,7 @@ define(['ri'], function () {
           data-src-phone="http://res.cloudinary.com/demo/image/upload/sample.jpg"> \
             ';
       setFixtures(input)
-      new ResponsiveImageLoader().loadImages();
+      new ResponsiveImageLoader({imageServer: "Scene7"}).loadImages();
 
       expect($(input).find('.ri').length).toEqual(1);
       var images = $(input).find('.ri');
@@ -66,12 +66,12 @@ define(['ri'], function () {
       var images = $(input).find('.ri');
       setFixtures(input);
 
-      new ResponsiveImageLoader().loadImages();
+      new ResponsiveImageLoader({imageServer: "Scene7"}).loadImages();
       expect(images[0].src).toEqual("http://res.cloudinary.com/demo/image/upload/sample.jpg?wid=700");
 
       window.innerWidth = 100;
 
-      new ResponsiveImageLoader().loadImages();
+      new ResponsiveImageLoader({imageServer: "Scene7"}).loadImages();
       expect(images[0].src).toEqual("http://res.cloudinary.com/demo/image/upload/sample.jpg?wid=200");
     });
 
