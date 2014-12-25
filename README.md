@@ -28,7 +28,7 @@ Responsive Image Handling [![Build Status](http://travis-ci.org/akshantalpm/resp
    ```javascript
     var imageLoader = new ResponsiveImageLoader(
       {
-        imageServer: "Scene7",
+        imageServer: "Cloudinary",
         breakpoints: new Breakpoints({
           "tablet": {minWidth: 0, maxWidth: 768},
           "desktop": {minWidth: 769, maxWidth: screen.availWidth}
@@ -44,8 +44,8 @@ Responsive Image Handling [![Build Status](http://travis-ci.org/akshantalpm/resp
  * src and width data attribute 
  
  ```html
- <img class="ri" src="" data-desktop-width="700" data-tablet-width="400" data-phone-width="200"
-     data-src-desktop="http://s7ap1.scene7.com/is/image/TW/lemon1"
-     data-src-tablet="http://s7ap1.scene7.com/is/image/TW/lemon1"
-     data-src-phone="http://s7ap1.scene7.com/is/image/TW/lemon2">
+ <img class="ri" src="" data-desktop-width="500" data-tablet-width="300" data-phone-width="150"
+      data-src-desktop="http://res.cloudinary.com/demo/image/upload/sample.jpg"
+      data-src-tablet="http://res.cloudinary.com/demo/image/upload/sample.jpg"
+      data-src-phone="http://res.cloudinary.com/cloudinary/image/upload/cloudinary_logo_square.png">
  ```
