@@ -39,8 +39,8 @@ ResponsiveImageLoader.prototype.init = function() {
 function Breakpoints(options) {
   var defaultBreakpoints = {
     "phone" : {minWidth:0, maxWidth: 480},
-    "tablet" :{minWidth: 481, maxWidth: 768},
-    "desktop": {minWidth: 769, maxWidth: screen.availWidth}
+    "tablet" :{minWidth: 481, maxWidth: 767},
+    "desktop": {minWidth: 768, maxWidth: screen.availWidth}
   }
   this.breakpoints = options || defaultBreakpoints;
 }
